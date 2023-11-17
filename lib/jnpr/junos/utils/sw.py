@@ -1311,7 +1311,7 @@ class SW(Util):
         except Exception as err:
             raise err
 
-    def zeroize(self, all_re=False, media=None):
+    def zeroize(self, all_re=False, media=None, vmhost=False):
         """
         Restore the system (configuration, log files, etc.) to a
         factory default state. This is the equivalent of the
@@ -1326,6 +1326,8 @@ class SW(Util):
             * rpc response message (string) if command successful
         """
         cmd = E("request-system-zeroize")
+        if vmhost:
+            cmd = E("request-vmhost-zeroize")
         if all_re is False:
             if self._dev.facts["2RE"]:
                 cmd = E("local")
